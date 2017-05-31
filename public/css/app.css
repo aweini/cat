@@ -1,0 +1,59 @@
+*{
+	margin:0;
+	padding: 0;
+	border:0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-family: inherit;
+	vertical-align: bottom;
+	font-size: 100%;
+	/*浏览器默认字体大小 设置这个h1 h2的大小会无效*/
+}
+body {
+	width:100%;
+	line-height: 1;
+	/*此数字会与当前字体的尺寸相乘来设置行间距*/
+	color:#000;
+	background: #fff;
+}
+
+body:before,
+body:after{
+	content:'';
+	display: table;
+}
+
+body:after{
+	clear: both;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+input,
+button {
+  margin: 0;
+  padding: 0;
+}
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}

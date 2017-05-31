@@ -1,0 +1,1 @@
+mongod 开启mongodb的服务端   mongod 指定数据文件目录 指定端口

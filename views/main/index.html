@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+	<title>呵呵</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="/public/css/app.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/main.css">
+	<script src="/public/js/jquery.js"></script>
+	<script src="/public/js/main.js"></script>
+</head>
+<body class="home-page">
+ <div class="wrapper">
+ 	<div class="header" style="background-image:url('/public/images/cat.jpg')">
+ 	</div>
+ 	<div class="container">
+ 		<section class="section">
+ 			<article class="article">
+				<div class="article-meta">
+					<span class="time">2017-03-04</span>
+					<span></span>
+				</div>
+				<div class="article-inner">
+					<div class="article-head">
+						标题
+					</div>
+					<div class="article-entry">
+						<p>内容简介</p>
+						<a href="javascript:;">read more</a>
+					</div>
+					<div class="article-footer">
+						#js
+					</div>
+				</div>
+			</article>
+
+			<article class="article">
+				<div class="article-meta">
+					<span class="time">2017-03-04</span>
+					<span></span>
+				</div>
+				<div class="article-inner">
+					<div class="article-head">
+						标题1
+					</div>
+					<div class="article-entry">
+						<p>内容简介</p>
+						<a href="javascript:;">read more</a>
+					</div>
+					<div class="article-footer">
+						#js
+					</div>
+				</div>
+			</article>
+ 		</section>
+ 		<div class="aside">
+			<!--swig模版引擎 node 后端模版,解释以后再返回前端-->
+			{% if userInfo._id  %}
+			<div class="widget-wrap" id="userInfoBox">
+				<div class="widget-title">用户信息</div>
+				<div class="widget">
+					<span class="username category-list-item">{{ userInfo.username }}</span>&nbsp;
+					{% if userInfo.isAdmin %}
+					<span class="welcome-info category-list-item">您好,管理员</span><a href="/admin">进入管理</a>
+					{% else %}
+					<span class="welcome-info category-list-item">您好,欢迎光临我的博客</span>
+					{% endif %}
+
+					<br>
+					<label id="logout" class="category-list-item">退出</label>
+				</div>
+			</div>
+			{% else %}
+			<div class="widget-wrap" id="loginBox">
+				<div class="widget-title">登录</div>
+				<div class="widget">
+					<label>用户名</label>
+					<input type="text" name="username" placeholder="请输入用户名"/>
+					<label>密码</label>
+					<input type="password" name="password" placeholder="请输入密码"/>
+					<input type="button" value="登录" id="loginBtn" />
+					<label class="error-msg category-list-item"></label>
+					<label class="category-list-item">没有账号?<span class="go-register">马上注册</span></label>
+				</div>
+			</div>
+			<div class="widget-wrap" id="registerBox" style="display: none;">
+				<div class="widget-title">注册</div>
+				<div class="widget">
+					<label>用户名</label>
+					<input type="text" name="username" placeholder="请输入用户名"/>
+					<label>密码</label>
+					<input type="password" name="password" placeholder="请输入密码"/>
+					<label>重复密码</label>
+					<input type="password" name="re-password" placeholder="请输入密码"/>
+					<input type="button" value="注册" id="registerBtn" />
+					<label class="error-msg category-list-item"></label>
+					<label class="category-list-item">已有账号,<span  class="go-login">马上登录</span></label>
+				</div>
+			</div>
+			{% endif %}
+ 			<div class="widget-wrap">
+				<div class="widget-title">目录</div>
+				<div class="widget">
+					<ul class="category-list">
+						<li class="category-list-item">
+							js
+						</li>
+						<li class="category-list-item">
+							css
+						</li>
+						<li class="category-list-item">
+							html
+						</li>
+						<li class="category-list-item">
+							vuejs
+						</li>
+						<li class="category-list-item">
+							reactjs
+						</li>
+					</ul>
+				</div>
+			</div>
+ 		</div>
+ 		
+ 	</div>
+ 	<div class="footer">
+ 		<div class="footer-context">
+ 			© 2017 mahong
+ 			<br>
+ 			powered by mahong
+ 		</div>
+ 	</div>
+	<!--  <span>注册</span>
+	 <input type="text" id="username" placeholder="请输入用户名">
+	 <input type="password" id="password" placeholder="请输入密码">
+	 <input type="password" id="repassword" placeholder="请重复密码">
+	 <button class="submit-btn">提交</button> -->
+ </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "mh-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a712718/blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a712718/blog/issues"
+  },
+  "homepage": "https://github.com/a712718/blog#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookies": "^0.7.0",
+    "express": "^4.15.3",
+    "markdown": "^0.5.0",
+    "mongoose": "^4.10.2",
+    "swig": "^1.4.2"
+  }
+}

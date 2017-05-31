@@ -1,0 +1,16 @@
+{% extends 'layout.html'%}
+
+{% block main %}
+<ol class="breadcrumb">
+    <li><a href="/">后台首页</a></li>
+    <li><a href="/user">分类首页</a></li>
+</ol>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        错误提示
+    </div>
+    <div class="panel-footer"> {{ message }}</div>
+</div>
+<a href="javascript: window.history.back()">返回上一步</a>
+{% endblock %}
