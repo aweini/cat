@@ -11,13 +11,13 @@
         <label>选择分类</label>
         <select name="category" id="category" class="form-control">
             {% for category in categories %}
-                <option value="{{category._id}}">{{category.name}}</option>
+                <option value="{{category._id.toString()}}">{{category.name}}</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
         <label>文章标题</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="请填写文章标题">
+        <input type="text" class="form-control" id="title" name="title" placeholder="请填写文章标题">
     </div>
     <div class="form-group">
         <label>文章简介</label>

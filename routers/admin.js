@@ -248,7 +248,9 @@ router.get('/content', function(req, res){
         skip = (page -1 )*limit;
         //从数据库中读取用户数据
 
-        Content.find().limit(limit).skip(skip).then(function(contents){
+        Content.find().limit(limit).skip(skip).populate(['category','user']).then(function(contents){
+            //populate('category') 根据 content schema 中 category 关联的Category,根据本数据category的id在Category中查询这条数据
+            console.log(contents);
             res.render('admin/content', {
                 userInfo: req.userInfo,
                 contents: contents,
@@ -268,6 +270,138 @@ router.get('/content/add', function(req, res){
         res.render('admin/content_add',{
             userInfo: req.userInfo,
             categories: categories
+        });
+    });
+});
+
+router.post('/content/add', function(req, res){
+    var category = req.body.category;
+    var title = req.body.title||"";
+    var description = req.body.description;
+    var content = req.body.content;
+
+    if(title==""){
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: "文章标题不能为空",
+            url: '/admin/content'
+        });
+        return;
+    }else{
+        var contentModel = new Content({
+            category: category,
+            title: title,
+            user: req.userInfo._id.toString(),
+            description: description,
+            content: content
+        });
+        contentModel.save().then(function(contentInfo){
+            if(contentInfo){
+                res.render('admin/success',{
+                    userInfo: req.userInfo,
+                    message: "文章保存成功",
+                    url: '/admin/content'
+                });
+            }
+        });
+
+    }
+
+
+});
+
+//文章编辑页获取
+router.get('/content/edit',function(req, res){
+    var id = req.query.id;
+    Content.findOne({
+        _id : id
+    }).populate('category').then(function(contentInfo){
+        console.log("contentInfo");
+        console.log(contentInfo);
+        if(!contentInfo){
+            res.render('admin/error', {
+                userInfo: req.userInfo,
+                message: "文章不存在",
+                url: '/admin/content'
+            });
+            return;
+        }else{
+            Category.find().then(function(categories){
+                res.render('admin/content_edit', {
+                    userInfo: req.userInfo,
+                    content: contentInfo,
+                    categories: categories
+                });
+            });
+        }
+    })
+});
+//文章编辑提交
+router.post('/content/edit', function(req, res){
+    var id = req.query.id;
+    var category = req.body.category;
+    var title = req.body.title;
+    var description = req.body.description;
+    var content = req.body.content;
+
+    if(title==""){
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: "文章标题不能为空",
+            url: '/admin/content'
+        });
+        return;
+    }else{
+        Content.findOne({_id: id}).then(function(contentInfo){
+            if(!contentInfo){
+                res.render('admin/error', {
+                    userInfo: req.userInfo,
+                    message: "文章不存在",
+                    url: '/admin/content'
+                });
+                return Promise.reject();
+            }else{
+                Content.findOne({
+                    _id : {$ne: id},
+                    title: title
+                }).then(function(reContent){
+                    if(reContent){
+                        res.render('admin/error', {
+                            userInfo: req.userInfo,
+                            message: "文章标题已经存在",
+                            url: '/admin/content'
+                        });
+                        return Promise.reject();
+                    }else{
+                        return Content.update({_id: id},{
+                            category: category,
+                            title: title,
+                            description: description,
+                            content: content
+                        });
+                    }
+                }).then(function(){
+                    res.render('admin/success', {
+                        userInfo: req.userInfo,
+                        message: "文章修改成功",
+                        url: '/admin/content'
+                    });
+                });
+
+            }
+        })
+    }
+
+});
+
+//删除文章
+router.get('/content/remove', function(req, res){
+    var id = req.query.id;
+    Content.remove({_id: id}).then(function(){
+        res.render('admin/success',{
+            userInfo: req.userInfo,
+            message: "删除文章成功",
+            url: '/admin/content'
         });
     });
 });

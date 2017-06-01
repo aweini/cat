@@ -10,8 +10,25 @@ module.exports = new mongoose.Schema({
     category: {
         //类型 ObjectId 是一个对象,与它关联
         type: mongoose.Schema.Types.ObjectId,
-        //引用 Content模型类
-        ref: 'Content'
+        //引用 Category模型类
+        ref: 'Category'
+    },
+    //关联字段-用户
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+
+    //添加时间
+    addTime: {
+        type: Date,
+        default: new Date()
+    },
+
+    //阅读量
+    views: {
+        type: Number,
+        default: 0
     },
     title: String,
     description:{
