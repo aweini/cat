@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 var Category = require('../models/Category');
+var Content = require('../models/Content');
 
 router.use(function(req, res, next){
     if(!req.userInfo.isAdmin){
@@ -230,6 +231,43 @@ router.get('/category/remove', function(req, res){
             userInfo: req.userInfo,
             message: "删除分类成功",
             url: '/admin/category'
+        });
+    });
+});
+
+router.get('/content', function(req, res){
+    var page = Number(req.query.page ||1);//页数
+    var limit = 10;//每页条数
+    var pages = 0; //总页数
+    var skip = 0;//从第几条开始读数据
+    //获取总条数 分页
+    Content.count().then(function(count){
+        pages = Math.ceil(count/limit);
+        page = Math.min( pages, page);
+        page = Math.max(page, 1);
+        skip = (page -1 )*limit;
+        //从数据库中读取用户数据
+
+        Content.find().limit(limit).skip(skip).then(function(contents){
+            res.render('admin/content', {
+                userInfo: req.userInfo,
+                contents: contents,
+                page: page,
+                count: count,
+                limit: limit,
+                pages: pages,
+                url: '/admin/content'
+            })
+        });
+    });
+});
+
+
+router.get('/content/add', function(req, res){
+    Category.find().then(function(categories){
+        res.render('admin/content_add',{
+            userInfo: req.userInfo,
+            categories: categories
         });
     });
 });

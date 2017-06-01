@@ -102,20 +102,14 @@
 				<div class="widget">
 					<ul class="category-list">
 						<li class="category-list-item">
-							js
+							<a href="/">首页</a>
 						</li>
+						{% for category in categories %}
 						<li class="category-list-item">
-							css
+							<a href="/">{{category.name}}</a>
 						</li>
-						<li class="category-list-item">
-							html
-						</li>
-						<li class="category-list-item">
-							vuejs
-						</li>
-						<li class="category-list-item">
-							reactjs
-						</li>
+						{% endfor %}
+
 					</ul>
 				</div>
 			</div>
